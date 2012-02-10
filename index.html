@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Erlang</title>
+
+  <meta name="viewport" content="width=device-width"/>
+
+  <link rel="stylesheet" href="./css/reset.css" type="text/css"/>
+  <link rel="stylesheet" href="./css/showoff.css" type="text/css"/>
+
+  <script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.cycle.all.js"></script>
+	<script type="text/javascript" src="./js/jquery-print.js"></script>
+  <script type="text/javascript" src="./js/jquery.batchImageLoad.js"></script>
+
+  <script type="text/javascript" src="./js/jquery.doubletap-0.1.js"></script>
+
+  <script type="text/javascript" src="./js/fg.menu.js"></script>
+  <script type="text/javascript" src="./js/showoff.js"></script>
+  <script type="text/javascript" src="./js/jTypeWriter.js"> </script>
+  <script type="text/javascript" src="./js/sh_main.min.js"></script>
+  <script type="text/javascript" src="./js/core.js"></script>
+  <script type="text/javascript" src="./js/showoffcore.js"></script>
+  <script type="text/javascript" src="./js/coffee-script.js"></script>
+
+  <link type="text/css" href="./css/fg.menu.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/theme/ui.all.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/sh_style.css" rel="stylesheet" >
+
+  
+    <link rel="stylesheet" href="file/erlang.css" type="text/css"/>
+  
+
+  
+
+  <script type="text/javascript">
+  $(function(){
+      setupPreso(false, './');
+  });
+  </script>
+
+</head>
+
+<body>
+
+<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="navmenu"><span class="ui-icon ui-icon-triangle-1-s"></span>slides</a>
+<div id="navigation" class="hidden"></div>
+
+<div id="help">
+  <table>
+    <tr><td class="key">z, ?</td><td>toggle help (this)</td></tr>
+    <tr><td class="key">space, &rarr;</td><td>next slide</td></tr>
+    <tr><td class="key">shift-space, &larr;</td><td>previous slide</td></tr>
+    <tr><td class="key">d</td><td>toggle debug mode</td></tr>
+    <tr><td class="key">## &lt;ret&gt;</td><td>go to slide #</td></tr>
+    <tr><td class="key">c, t</td><td>table of contents (vi)</td></tr>
+    <tr><td class="key">f</td><td>toggle footer</td></tr>
+    <tr><td class="key">r</td><td>reload slides</td></tr>
+    <tr><td class="key">n</td><td>toggle notes</td></tr>
+    <tr><td class="key">p</td><td>run preshow</td></tr>
+  </table>
+</div>
+
+<div class="buttonNav">
+  <input type="submit" onClick="prevStep();" value="prev"/>
+  <input type="submit" onClick="nextStep();" value="next"/>
+</div>
+
+<div id="preso">loading presentation...</div>
+<div id="footer">
+  <span id="slideInfo"></span>
+  <span id="debugInfo"></span>
+  <span id="notesInfo"></span>
+</div>
+
+<div id="slides" class="offscreen" style="display:none;">
+<div class="slide" data-transition="none"><div class="content title-slide" ref="presentation/slidesA/1">
+<p class="notes">first slide</p>
+
+<h1>Erlang</h1>
+
+<p>by Josh Rendek</p>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/2">
+<h1>Erlang &amp; OTP - Open Telecom Platform</h1>
+
+<ul>
+<li>1987-1991
+
+<ul>
+<li>Several design phases worked through including  the first Erlang VM's and compilers</li>
+</ul>
+</li>
+<li>1990
+
+<ul>
+<li>Erlang is presented at the 1990 International Switching Symposium</li>
+</ul>
+</li>
+<li>1991-1993
+
+<ul>
+<li>Erlang is released to the general public</li>
+<li>Seperate team at Ericsson takes over maintenance and support of the language</li>
+</ul>
+</li>
+<li>1998 Ericsson announces AXD301, telecom switch; over a million lines of Erlang
+
+<ul>
+<li>99.999999999% availability: 1 second of downtime in 30 years</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/3">
+<h1>The Erlang Virtual Machine (BEAM)</h1>
+
+<ul>
+<li>Erlang only supports compiled modules for items such as functions and modules (can't be defined in REPL shell)
+
+<ul>
+<li>There is another way using inline function declaration.</li>
+<li>Not great for large functions.</li>
+</ul>
+</li>
+<li>Variables must start with an uppercase letter
+
+<ul>
+<li>May only be bound once</li>
+</ul>
+</li>
+<li>To evaluate the statement must end with a .</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="presentation/slidesA/4">
+<pre><code><code class="command">$ erl&gt; io:write('Hello World\n').</code>
+<code class="result">        'Hello World\n'ok
+</code><code class="command">$ erl&gt; io:format('Hello World\n', []).</code>
+<code class="result">        Hello World
+        ok 
+</code></code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/5">
+<h1>Basic Types</h1>
+
+<ul>
+<li>Numbers
+
+<ul>
+<li>Integers</li>
+<li>Floats</li>
+</ul>
+</li>
+<li>Atoms</li>
+<li>Tuples</li>
+<li>Lists</li>
+<li>Variables</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/6">
+<h1>Numbers</h1>
+
+<pre class="sh_erlang"><code>(10*20). %% =&gt; 200
+(16#FF * 10). %% =&gt; 2550
+(2#100110101001 * 10). %% =&gt; 11930
+1.4E-10. %% =&gt; 1.4E-10
+1.4E-10 * 1000. %% =&gt; 1.4E-7</code></pre>
+
+<ul>
+<li>Decimal and Arbitrary Bases</li>
+<li><p>Mix and match bases</p></li>
+<li><p>Floats</p>
+
+<ul>
+<li>Standard decimal representation</li>
+<li>Also supports scientific notation</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/7">
+<h1>Comparison Operators</h1>
+
+<ul>
+<li>== : Equal To</li>
+<li>/= : Not equal to</li>
+<li>=&lt; : Less than or equal to</li>
+<li>&lt;  : Less than</li>
+<li>&gt;= : Greater than or eqal to</li>
+<li>&gt;  : Greater than</li>
+<li>=:= : Exactly equal to</li>
+<li>=/= : Exactly not equal to</li>
+</ul>
+
+
+<h1>.</h1>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/8">
+<h1>Arithmetic</h1>
+
+<ul>
+<li>bnot : Bitwise not</li>
+<li>/ : Floating point division</li>
+<li>div : integer divsion</li>
+<li>rem : remainder of integer division</li>
+<li>band : bitwise and</li>
+<li>bor: bitwise or</li>
+<li>bxor : bitwise xor</li>
+<li>bsl : bitshift left</li>
+<li>bsr : bitshift right</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/9">
+<h1>Boolean Expressions</h1>
+
+<ul>
+<li>not</li>
+<li>and</li>
+<li>or</li>
+<li>xor</li>
+</ul>
+
+
+<h1>.</h1>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/10">
+<h1>Short-Circuit Expressions</h1>
+
+<pre class="sh_erlang"><code>A orelse B
+C andalso D</code></pre>
+
+<ul>
+<li>orelse</li>
+<li>andalso</li>
+<li>B will only be run if A returns false</li>
+<li>D will only be run if C is true</li>
+</ul>
+
+
+<h1>.</h1>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/11">
+<h1>Atoms</h1>
+
+<pre class="sh_erlang"><code>'foo'
+bar</code></pre>
+
+<ul>
+<li>Unlimited length</li>
+<li>Any character can be used within</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/12">
+<h1>Tuples</h1>
+
+<pre class="sh_erlang"><code>{'foo', 'bar', 'baz'}
+{hello, world}</code></pre>
+
+<ul>
+<li>Fixed number of items</li>
+<li>Unlimited size</li>
+<li>Can be accessed like an array</li>
+<li>More efficient than a list</li>
+<li>Constant time indexing, since the element can be accessed like an array</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/13">
+<h1>Lists</h1>
+
+<pre class="sh_erlang"><code>A = [1,2,3].
+B = [4,5,6].
+C = lists:append([A,B]).
+  %% =&gt; [1,2,3,4,5,6]
+D = A ++ B. 
+  %% =&gt; [1,2,3,4,5,6]
+[1,2,3,3,4] -- [1,2,3]. %% =&gt; [3,4]</code></pre>
+
+<ul>
+<li>Dynamically sized</li>
+<li>Offers intuitive implementation</li>
+<li>Must be traversed, offering <em>O(N)</em> time performance to find an element in a list of <em>N</em> elements</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/14">
+<h1>List Comprehension</h1>
+
+<pre class="sh_erlang"><code>[X*2] || X &lt;- [1,2,3]].
+  %% =&gt; [2,4,6]</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content commandline incremental" ref="presentation/slidesA/15">
+<h1>Pattern Matching  Variable Assignment</h1>
+
+<pre><code><code class="command">$ erl&gt; A = 1.</code>
+<code class="result">        1
+
+</code><code class="command">$ erl&gt; {A,B,C} = {1,2,3}.</code>
+<code class="result">        {1,2,3} 
+</code></code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/16">
+<ul>
+<li>Only works on same data types (Can't mass assign lists to tuples or vice versa)</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/17">
+<h1>Anonymous Variables &amp; Pattern Matching</h1>
+
+<pre class="sh_erlang"><code>[H|_] = [1,2,3]. %% H. =&gt; 1 
+[H|T] = [1,2,3].
+  %% H =&gt; 1; T = [2,3]
+L = [H|T].
+  %% L =&gt; [1,2,3]</code></pre>
+
+<ul>
+<li>_Foobar is not an anonymous variable, however it wont generate compiler warnings if it isn't used</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/18">
+<h1>Functions</h1>
+
+<ul>
+<li>Every function name is an atom</li>
+<li>Arguments are patterns</li>
+<li>Similar to Java, C, and other languages, [say_hello/1] is a different function than
+[say_hello/2]</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content commandline incremental" ref="presentation/slidesA/19">
+<h1>Functions - Funs</h1>
+
+<pre><code><code class="command">$ erl&gt; GiveMeOneHundredNumbers = fun() -&gt; lists:seq(1,100) end.</code>
+<code class="result">      #Fun&lt;erl_eval.20.21881191&gt;
+
+</code><code class="command">$ erl&gt; GiveMeOneHundredNumbers().</code>
+<code class="result">      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,
+      23,24,25,26,27,28,29|...]
+</code></code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/20">
+<h1>Functions - Modules</h1>
+
+<pre class="sh_erlang"><code>-module(hello).
+-export([say_hello/1]).
+
+say_hello(Name) -&gt;
+  io:format("Hello, ~p\n.", [Name]).</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content commandline incremental" ref="presentation/slidesA/21">
+<h1>Running the module</h1>
+
+<pre><code><code class="command">$ erl&gt; c(hello).</code>
+<code class="result">{ok,hello}
+</code><code class="command">$ erl&gt; hello:say_hello('Josh').</code>
+<code class="result">Hello, 'Josh'
+.ok
+</code></code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/22">
+<h1>Functions - Modules</h1>
+
+<pre class="sh_erlang"><code>-module(vector).
+-export([add/2]).
+
+add([]) -&gt; [];
+add([{X,Y,Z}|T]) -&gt;
+  [{X+1, Y+1, Z+1}|add(T)].</code></pre>
+
+<h1>.</h1>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/23">
+<h1>Example using function guards and recursion</h1>
+
+<pre class="sh_erlang"><code>-module(fac).
+-export([factorial/1]).
+factorial(N) when N &gt; 0 -&gt;
+  N * factorial(N-1);
+factorial(0) -&gt;
+  1.</code></pre>
+
+<h1>.</h1>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/24">
+<h1>Tail Recursion</h1>
+
+<pre class="sh_erlang"><code>loop(N) -&gt;
+  io:format("~w~n", [N]),
+  loop(N+1).</code></pre>
+
+<ul>
+<li>Tail recursion allows the construction of infinite loops without conusming system resources</li>
+<li>Previous example is not tail recursive</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/25">
+<h1>Built in Functions</h1>
+
+<pre class="sh_erlang"><code>tuple_size({a,b,c}). %% =&gt; 3
+atom_to_list('Erlang'). %% =&gt; "Erlang"</code></pre>
+
+<ul>
+<li>Large collection of built in functions that are written in C, examples include lists, ets, and atoms</li>
+<li>Can be overriden by local functions if compiled with a no auto import</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/26">
+<h1>Catch &amp; Throw</h1>
+
+<pre class="sh_erlang"><code>catch 1+a. %% EXIT
+catch throw(hello).
+  %% =&gt; hello</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/27">
+<h1>Blocks</h1>
+
+<pre class="sh_erlang"><code>begin
+  Expr1,
+  ...,
+  ExprN
+end</code></pre>
+
+<ul>
+<li>This would return the last value evaluated ( ExprN )</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/28">
+<h1>Logic - If</h1>
+
+<pre class="sh_erlang"><code>is_greater_than(X, Y) -&gt; % function
+  if 
+    X &gt; Y -&gt; % guard
+      true;
+    true -&gt; % else
+      false
+  end</code></pre>
+
+<ul>
+<li>There needs to always be a else branch (true branch) otherwise a compiler error will be thrown on if_clause</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/29">
+<h1>Logic - Case</h1>
+
+<pre class="sh_erlang"><code>{X,Y,Z} = {1.0, 2.0, 3.0}.
+
+case (X, Y, Z} of
+  {0, 0, 0} -&gt; empty_vector; 
+    % return an atom
+  {A, A, A} -&gt; all_same; 
+    % another return atom
+  {X1, Y1, Z1} -&gt; 
+    { X1 + 1, Y1 + 1, Z1 + 1} 
+    % return a computed result
+  end</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/30">
+<h1>Errors</h1>
+
+<h2>4 types of errors</h2>
+
+<ul>
+<li>Compile-time errors</li>
+<li>Logical errors</li>
+<li>Run-time errors</li>
+<li>Generated errors</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/31">
+<h1>Compile-time errors</h1>
+
+<ul>
+<li>Caught by the compiler, not a big deal</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/32">
+<h1>Logical Errors</h1>
+
+<ul>
+<li>Things like button clicks not triggering events</li>
+<li>Program does not crash</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/33">
+<h1>Generated Errors</h1>
+
+<ul>
+<li>Will call exit/1 or throw/1</li>
+<li>Exceptions of classes exit and throw</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/34">
+<h1>Run-Time errors</h1>
+
+<ul>
+<li>Trying to use two different types together ( ex: Lists &amp; Tuples )</li>
+<li>Process execution stops at this point</li>
+<li>Emits an exit signal and reason
+
+<ul>
+<li>exit reason is a tuple: {Reason, Stack}</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/35">
+<h1>Handling of Run-Time errors in Erlang</h1>
+
+<ul>
+<li>Can prevent process termination using try/catch</li>
+<li>Can detect process termination through other processes</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/36">
+<h1>Processes</h1>
+
+<ul>
+<li>Allows for massive concurrency</li>
+<li>Cheap to spawn, low footprint</li>
+<li>Low scheduling overhead</li>
+<li>Created by calling spawn</li>
+<li>Can communicate using send and receive</li>
+</ul>
+
+
+<h1>.</h1>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="presentation/slidesA/37">
+<h1>More reading</h1>
+
+<ul>
+<li>http://erlang.org/</li>
+<li>http://trapexit.org/</li>
+<li>http://www.cincomsmalltalk.com/userblogs/ralph/blogView?entry=3364027251</li>
+<li>http://www.tamale.net/erlang/tutorial.shtml</li>
+</ul>
+
+</div>
+</div></div>
+
+</body>
+</html>
